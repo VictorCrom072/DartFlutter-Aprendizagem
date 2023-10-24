@@ -1,3 +1,4 @@
+import 'dart:convert';
 
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
@@ -17,6 +18,14 @@ class Serverhandler {
       String? nome = request.url.queryParameters['nome'];
       String? idade = request.url.queryParameters['idade'];
       return Response.ok(headers: {'Content-Type': 'text/plain'}, 'Query eh: $nome, $idade');
+    });
+    router.post('/login', (Request request) async{
+      var result = await request.readAsString();
+      Map json =  jsonDecode(result);
+      if(json['tipo'] == 'adm' && json['senha'] == 'uDroga')
+        return Response.ok('Admininastrô');
+      else
+        return Response.ok('loko e soinhádô');
     });
     return router;
   }
