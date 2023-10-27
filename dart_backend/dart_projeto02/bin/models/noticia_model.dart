@@ -15,6 +15,30 @@ class NoticiaModel {
     this.dtAtualPublicacao,
   );
 
+  factory NoticiaModel.fromJson(Map map){
+    return NoticiaModel(
+      map['id'] ?? '',
+      map['titulo'],
+      map['descricao'],
+      map['imagem'],
+
+      DateTime.fromMicrosecondsSinceEpoch(map['dtPublicacao']),
+
+      map['dtAtualPublicacao'] != null
+      ? DateTime.fromMicrosecondsSinceEpoch(map['dtAtualPublicacao'])
+      : null
+    );
+  }
+
+  Map toJson(){
+    return{
+      'id' : id,
+      'titulo' : titulo,
+      'descricao' : descricao,
+      'imagem' : imagem,
+    };
+  }
+
   @override
   String toString(){
     return 'NoticiaModel(id: $id, titulo: $titulo, descricao: $descricao, imagem: $imagem, dtPublicacao: $dtPublicacao, dtAtualPublicacao: $dtAtualPublicacao)'; 
