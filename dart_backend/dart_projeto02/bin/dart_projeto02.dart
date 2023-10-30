@@ -11,15 +11,19 @@ import 'utils/custom_env.dart';
 
 void main() async {
   CustomEnv.fromFile('.env');
+  var _securityService = SecurityServiceImp();
   var cascadeHandler = Cascade()
-    .add(LoginApi(SecurityServiceImp()).handler)
-    .add(BlogApi(NoticiaService()).handler)
+    .add(LoginApi(_securityService).getHandler())
+    .add(BlogApi(NoticiaService()).getHandler(
+      middlewares: [
+        _securityService.authorization,
+        _securityService.verifiJwt,
+      ]
+    ))
     .handler;
   var handler = Pipeline()
     .addMiddleware(logRequests())
     .addMiddleware(MiddlewareInterception.middlerware)
-    .addMiddleware(SecurityServiceImp().authorization)
-    .addMiddleware(SecurityServiceImp().verifiJwt)
     .addHandler(cascadeHandler);
   await CustomServer()
     .initialize(

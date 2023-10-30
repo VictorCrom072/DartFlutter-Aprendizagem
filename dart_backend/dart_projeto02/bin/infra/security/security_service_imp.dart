@@ -3,7 +3,6 @@ import 'package:shelf/shelf.dart';
 import 'package:shelf/src/middleware.dart';
 
 import '../../utils/custom_env.dart';
-import '../security/validate/api_router_validate.dart';
 import 'security_service.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 
@@ -61,12 +60,6 @@ class SecurityServiceImp implements SecurityService<JWT>{
   @override
   Middleware get verifiJwt => createMiddleware(
     requestHandler: (Request req ) {
-      var _apiSecurity = ApiRouterValidate()
-        .add('')
-        .add('xpto')
-        .add('register')
-        .add('teste');
-      if(_apiSecurity.isPublic(req.url.path)) return null;
       if(req.context['jwt'] == null) {
         return Response.forbidden('Not Authorized');
       }
