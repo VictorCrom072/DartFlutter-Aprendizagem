@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:api_connection/update_record.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart'as http;
@@ -44,6 +45,13 @@ class _View_dataState extends State<View_data> {
           return Card(
             margin: const EdgeInsets.all(15),
             child: ListTile(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>update_record(
+                  usuarios[i]["nome_usu"],
+                  usuarios[i]["email_usu"],
+                  usuarios[i]["senha_usu"],
+                )));
+              },
               leading: const Icon(
                 CupertinoIcons.heart,
                  color: Colors.red,
