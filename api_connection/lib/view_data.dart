@@ -14,16 +14,16 @@ class View_data extends StatefulWidget {
 class _View_dataState extends State<View_data> {
   List usuarios=[];
   Future<void> getUsuarios () async {
-    String uri = "http://localhost/api_connection/usuario_selecionar.php";
-    //try{
+    String uri = "http://10.0.2.2/api_connection/usuario_selecionar.php";
+    try{
       var res = await http.post(Uri.parse(uri));
       setState(() {
-        usuarios = jsonDecode(res.body);
+        usuarios = jsonDecode(jsonEncode(res.body));
       });
-    //}
-    //catch(e){
-      //print(e);
-    //}
+    }
+    catch(e){
+      print(e);
+    }
   }
 
   @override
@@ -52,7 +52,9 @@ class _View_dataState extends State<View_data> {
               subtitle: Text(usuarios[i]["email_usu"]),
               trailing: IconButton(
                 icon: const Icon(Icons.delete),
-                 onPressed: deletarUsuario,
+                onPressed: () {
+                  deletarUsuario(usuarios[i]['id_usu']);
+                },
               ),
             ),
           );
@@ -60,5 +62,26 @@ class _View_dataState extends State<View_data> {
     );
   }
 
-  Future<void> deletarUsuario() async {}
+  Future<void> deletarUsuario(String id) async {
+    String uri = "http://10.0.2.2/api_connection/usuario_selecionar.php";
+    try{
+      var res = await http.post(
+        Uri.parse(uri),
+        body: {
+          'id': id
+        }
+      );
+      var response = jsonDecode(jsonEncode(res.body));
+      if(response[1] == true){
+        print("Usuário deletado");
+        getUsuarios();
+      }
+      else{
+        print("Erro ao deletar usuário");
+      }
+    }
+    catch(e){
+      print(e);
+    }
+  }
 }

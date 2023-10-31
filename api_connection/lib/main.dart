@@ -25,24 +25,30 @@ class _MainAppState extends State<MainApp> {
       print("Preencha todos os campos");
     }
     else{
-      String uri = "http://localhost/api_connection/usuario_inserir.php";
-      //try{
-        var res = await http.post(Uri.parse(uri), body: {
-          "name": nome.text,
-          "email": email.text,
-          "senha": senha.text,
-        });
-        var response = jsonDecode(res.body);
-        if(response["sucess"] == true){
+      String uri = "http://10.0.2.2/api_connection/usuario_inserir.php";
+      try{
+        var res = await http.post(
+          Uri.parse(uri),
+          headers: {
+            'content':'application/json'
+          },
+          body: {
+            "nome": nome.text,
+            "email": email.text,
+            "senha": senha.text,
+          },
+        );
+        var response = jsonDecode(jsonEncode(res.body));
+        if(response[1] == true){
           print("Usuário inserido");
         }
         else{
           print("Erro ao inserir usuário");
         }
-      //}
-      //catch(e){
-        //print(e);
-      //}
+      }
+      catch(e){
+        print(e);
+      }
     }
   }
 
