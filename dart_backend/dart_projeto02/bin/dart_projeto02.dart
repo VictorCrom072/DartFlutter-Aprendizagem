@@ -15,6 +15,7 @@ void main() async {
 
   var conn = await _di.get<DBConfiguration>().connection;
   var results = await conn.query("SELECT * FROM usuarios;");
+  results = await conn.query("SELECT * FROM usuarios;");
   print(results);
 
   var cascadeHandler = Cascade()
