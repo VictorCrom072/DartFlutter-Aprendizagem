@@ -1,8 +1,8 @@
-import 'database/mysql_config.dart';
+
+import 'dao/usuario_dao.dart';
 
 void main() async {
-  var conn = await MysqlConfig().conectar();
-  var results = await conn.query('select * from usuarios;');
-  results = await conn.query('select * from usuarios;');
-  print(results);
+  var dao = UsuarioDao();
+  print(await dao.findAll());
+  print(await dao.find(2));
 }

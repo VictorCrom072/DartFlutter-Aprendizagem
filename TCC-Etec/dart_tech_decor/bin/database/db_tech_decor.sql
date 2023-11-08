@@ -1,13 +1,13 @@
 drop database if exists dart;
-CREATE SCHEMA `dart` DEFAULT CHARACTER SET utf8;
-USE `dart`;
+create database dart;
+use dart;
 
-CREATE TABLE IF NOT EXISTS usuarios (
-  id INT primary key AUTO_INCREMENT,
-  nome VARCHAR(255) NOT NULL,
-  email VARCHAR(255) NOT NULL,
-  senha VARCHAR(255) NOT NULL,
-  dt_criacao datetime DEFAULT CURRENT_TIMESTAMP
+create table  usuarios (
+  id int primary key auto_increment,
+  nome varchar(255) not null,
+  email varchar(255) not null,
+  senha varchar(255) not null,
+  dt_criacao datetime default current_timestamp
 );
 
 insert into usuarios values(default, 'Crom', 'cromatico@gmail.com', '1234', default);

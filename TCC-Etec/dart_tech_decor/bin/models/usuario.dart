@@ -33,13 +33,9 @@ class Usuario {
       nome: map['nome'] as String,
       email: map['email'] as String,
       senha: map['senha'] as String,
-      dtCriacao: DateTime.fromMillisecondsSinceEpoch(map['dtCriacao'] as int),
+      dtCriacao: map['dt_criacao'],
     );
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory Usuario.fromJson(String source) => Usuario.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
