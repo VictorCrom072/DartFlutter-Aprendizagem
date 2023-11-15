@@ -1,3 +1,4 @@
+import 'package:mysql1/mysql1.dart';
 import 'package:shelf/shelf.dart';
 
 import 'api/noticia_api.dart';
@@ -6,6 +7,7 @@ import 'infra/custom_server.dart';
 import 'infra/dart_injector/injects.dart';
 import 'infra/database/db_configuration.dart';
 import 'infra/middleware.interception.dart';
+import 'models/usuario_model.dart';
 import 'utils/custom_env.dart';
 
 void main() async {
@@ -17,6 +19,10 @@ void main() async {
   var results = await conn.query("SELECT * FROM usuarios;");
   results = await conn.query("SELECT * FROM usuarios;");
   print(results);
+  for (ResultRow r in results) {
+    UsuarioModel usuario = UsuarioModel.fromMap(r.fields);
+    print(usuario.toString());
+  }
 
   var cascadeHandler = Cascade()
     .add(_di.get<LoginApi>().getHandler())
