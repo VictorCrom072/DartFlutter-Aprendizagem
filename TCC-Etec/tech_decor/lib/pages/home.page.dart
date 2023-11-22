@@ -6,26 +6,16 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
+
         title: Center(
           child: SizedBox(
-            width: 100,
+            width: 70,
             child: Image.asset("assets/td-logo.png"),
-          ),
-        ),
-        leading: Container(
-          height: 40,
-          width: 40,
-          decoration: new BoxDecoration(
-            image: new DecorationImage(
-              image: AssetImage("assets/profile-tech-decor.png"),
-              fit: BoxFit.fitHeight,
-            ),
           ),
         ),
         actions: <Widget>[
           Container(
-            width: 60,
-            child: ElevatedButton(
+            child: TextButton(
               child: Icon(
                 Icons.search,
                 color: Color(0xFFBABABA),
@@ -56,17 +46,13 @@ Widget cardItem() {
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        const ListTile(
-          leading: CircleAvatar(
-            backgroundImage: NetworkImage(
-                "https://baltaio.blob.core.windows.net/student-images/1edd5c50-bae9-11e8-8eb4-39de303632c1.jpg"),
-          ),
-          title: Text("Bruce Wayne"),
+        Container(
+          child: Image.asset("assets/quartoGamerTeste.webp"),
+        ),
+        ListTile(
+          title: Text("Quarto Gamer"),
           subtitle: Text("09/05/2019 18:37"),
           trailing: Icon(Icons.more_vert),
-        ),
-        Container(
-          child: Image.asset("assets/post-picture-001.png"),
         ),
         Container(
           padding: EdgeInsets.all(10),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tech_decor/controller/usuario_dao.dart';
+import 'package:tech_decor/pages/error.dart';
 import 'package:tech_decor/pages/home.page.dart';
 
 class SignupPage extends StatelessWidget {
@@ -9,10 +10,10 @@ class SignupPage extends StatelessWidget {
   TextEditingController uConfSenha = TextEditingController();
   void cadastrar(BuildContext context) async {
     if(uNome.text == "" || uEmail.text == "" || uSenha.text == "" || uConfSenha.text == ""){
-      print("Preencha todos os campos");
+      errorUsuario(context, 'Cadastrar', 'Preencha todos os Dados');
     }
     else if(uSenha.text != uConfSenha.text){
-      print("Senhas não são iguais");
+      errorUsuario(context, 'Cadastrar', 'As Senhas não são iguais');
     }
     else{
       var uDao = UsuarioDao();
@@ -25,6 +26,8 @@ class SignupPage extends StatelessWidget {
           ),
         );
       }
+      else
+        errorUsuario(context, 'Cadastrar', 'Verifique os Dados do Cadastro');
     }
   }
   @override
@@ -66,7 +69,7 @@ class SignupPage extends StatelessWidget {
             ),
             TextFormField(
               controller: uEmail,
-              keyboardType: TextInputType.text,
+              keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 labelText: "E-mail do Usuário",
                 labelStyle: TextStyle(
@@ -81,7 +84,8 @@ class SignupPage extends StatelessWidget {
             ),
             TextFormField(
               controller: uSenha,
-              keyboardType: TextInputType.emailAddress,
+              keyboardType: TextInputType.text,
+              obscureText: true,
               decoration: InputDecoration(
                 labelText: "Senha",
                 labelStyle: TextStyle(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tech_decor/pages/home.page.dart';
 import 'package:tech_decor/pages/login_page.dart';
 
 void main() => runApp(MyApp());
@@ -10,7 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Tech Decor',
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: HomePage(),
     );
   }
 }

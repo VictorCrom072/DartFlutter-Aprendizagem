@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:tech_decor/controller/usuario_dao.dart';
+import 'package:tech_decor/pages/error.dart';
 import 'package:tech_decor/pages/home.page.dart';
 import 'package:tech_decor/pages/signup.page.dart';
 
@@ -8,9 +9,8 @@ class LoginPage extends StatelessWidget {
   TextEditingController uNome = TextEditingController();
   TextEditingController uSenha = TextEditingController();
   void logar(BuildContext context) async {
-    if(uNome.text == "" || uSenha.text == ""){
-      print('preencha tudo');
-    }
+    if(uNome.text == "" || uSenha.text == "")
+      errorUsuario(context, 'Logar', 'Preencha todos os Campos',);
     else{
       var uDao = UsuarioDao();
       bool result = await uDao.logar(uNome.text, uSenha.text);
@@ -22,6 +22,7 @@ class LoginPage extends StatelessWidget {
           ),
         );
       }
+      else errorUsuario(context, "Logar", "Usuário e/ou Senha Inválida",);
     }
   }
   @override
