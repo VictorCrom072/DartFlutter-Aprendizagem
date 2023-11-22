@@ -1,8 +1,29 @@
+
 import 'package:flutter/material.dart';
+import 'package:tech_decor/controller/usuario_dao.dart';
 import 'package:tech_decor/pages/home.page.dart';
 import 'package:tech_decor/pages/signup.page.dart';
 
 class LoginPage extends StatelessWidget {
+  TextEditingController uNome = TextEditingController();
+  TextEditingController uSenha = TextEditingController();
+  void logar(BuildContext context) async {
+    if(uNome.text == "" || uSenha.text == ""){
+      print('preencha tudo');
+    }
+    else{
+      var uDao = UsuarioDao();
+      bool result = await uDao.logar(uNome.text, uSenha.text);
+      if(result == true){
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomePage(),
+          ),
+        );
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,22 +33,22 @@ class LoginPage extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             SizedBox(
-              width: 128,
-              height: 128,
+              width: 300,
+              height: 300,
               child: Image.asset("assets/td-logo.png"),
             ),
             SizedBox(
               height: 20,
             ),
             TextFormField(
-              // autofocus: true,
+              controller: uNome,
               keyboardType: TextInputType.multiline,
               decoration: InputDecoration(
-                labelText: "E-mail",
+                labelText: "Usuário",
                 labelStyle: TextStyle(
                   color: Colors.black54,
                   fontWeight: FontWeight.w400,
-                  fontSize: 20,
+                  fontSize: 15,
                 ),
               ),
               style: TextStyle(fontSize: 20),
@@ -36,7 +57,7 @@ class LoginPage extends StatelessWidget {
               height: 10,
             ),
             TextFormField(
-              // autofocus: true,
+              controller: uSenha,
               keyboardType: TextInputType.text,
               obscureText: true,
               decoration: InputDecoration(
@@ -44,7 +65,7 @@ class LoginPage extends StatelessWidget {
                 labelStyle: TextStyle(
                   color:  Colors.black54,
                   fontWeight: FontWeight.w400,
-                  fontSize: 20,
+                  fontSize: 15,
                 ),
               ),
               style: TextStyle(fontSize: 20),
@@ -64,11 +85,10 @@ class LoginPage extends StatelessWidget {
                   colors: [
                     Color.fromARGB(230, 162, 222, 166),
                     Color.fromARGB(230, 173, 212, 237),
-                    
                   ],
                 ),
                 borderRadius: BorderRadius.all(
-                  Radius.circular(5),
+                  Radius.circular(30),
                 ),
               ),
               child: SizedBox.expand(
@@ -88,18 +108,13 @@ class LoginPage extends StatelessWidget {
                     ],
                   ),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomePage(),
-                      ),
-                    );
+                    logar(context);
                   },
                 ),
               ),
             ),
             SizedBox(
-              height: 10,
+              height: 50,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -108,12 +123,11 @@ class LoginPage extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.black,
                     borderRadius: BorderRadius.all(
-                      Radius.circular(5),
+                      Radius.circular(30),
                     ),
                   ),
                   height: 40,
                   child: TextButton(
-                    //style:Color.fromARGB(230, 162, 222, 166),
                     child: Text(
                       "Cadastre-se",
                       style: TextStyle(

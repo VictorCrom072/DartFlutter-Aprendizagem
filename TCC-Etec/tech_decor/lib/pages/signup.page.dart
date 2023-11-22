@@ -1,6 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:tech_decor/controller/usuario_dao.dart';
+import 'package:tech_decor/pages/home.page.dart';
 
 class SignupPage extends StatelessWidget {
+  TextEditingController uNome = TextEditingController();
+  TextEditingController uEmail = TextEditingController();
+  TextEditingController uSenha = TextEditingController();
+  TextEditingController uConfSenha = TextEditingController();
+  void cadastrar(BuildContext context) async {
+    if(uNome.text == "" || uEmail.text == "" || uSenha.text == "" || uConfSenha.text == ""){
+      print("Preencha todos os campos");
+    }
+    else if(uSenha.text != uConfSenha.text){
+      print("Senhas não são iguais");
+    }
+    else{
+      var uDao = UsuarioDao();
+      bool result = await uDao.inserir(uNome.text, uEmail.text, uSenha.text);
+      if(result == true){
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomePage(),
+          ),
+        );
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,80 +45,57 @@ class SignupPage extends StatelessWidget {
                   fit: BoxFit.fitHeight,
                 ),
               ),
-              /* child: Container(
-                height: 56,
-                width: 56,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    stops: [0.3, 1.0],
-                    colors: [
-                      Color(0xFFF58524),
-                      Color(0XFFF92B7F),
-                    ],
-                  ),
-                  border: Border.all(
-                    width: 4.0,
-                    color: const Color(0xFFFFFFFF),
-                  ),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(56),
-                  ),
-                ),
-                child: SizedBox.expand(
-                  child: TextButton(
-                    child: Icon(
-                      Icons.add,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {},
-                  ),
-                ),
-              ), */
             ),
             SizedBox(
               height: 20,
             ),
             TextFormField(
-              // autofocus: true,
+              controller: uNome,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
-                labelText: "Nome",
+                labelText: "Nome do Usuário",
                 labelStyle: TextStyle(
                   color: Colors.black38,
                   fontWeight: FontWeight.w400,
-                  fontSize: 20,
+                  fontSize: 15,
                 ),
               ),
               style: TextStyle(
                 fontSize: 20,
               ),
             ),
-            /* SizedBox(
-              height: 10,
-            ), */
             TextFormField(
-              // autofocus: true,
+              controller: uEmail,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                labelText: "E-mail do Usuário",
+                labelStyle: TextStyle(
+                  color: Colors.black38,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 15,
+                ),
+              ),
+              style: TextStyle(
+                fontSize: 20,
+              ),
+            ),
+            TextFormField(
+              controller: uSenha,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
                 labelText: "Senha",
                 labelStyle: TextStyle(
                   color: Colors.black38,
                   fontWeight: FontWeight.w400,
-                  fontSize: 20,
+                  fontSize: 15,
                 ),
               ),
               style: TextStyle(
                 fontSize: 20,
               ),
             ),
-            /* SizedBox(
-              height: 10,
-            ), */
             TextFormField(
-              // autofocus: true,
+              controller: uConfSenha,
               keyboardType: TextInputType.text,
               obscureText: true,
               decoration: InputDecoration(
@@ -100,13 +103,13 @@ class SignupPage extends StatelessWidget {
                 labelStyle: TextStyle(
                   color: Colors.black38,
                   fontWeight: FontWeight.w400,
-                  fontSize: 20,
+                  fontSize: 15,
                 ),
               ),
               style: TextStyle(fontSize: 20),
             ),
             SizedBox(
-              height: 20,
+              height: 30,
             ),
             Container(
               height: 60,
@@ -136,7 +139,7 @@ class SignupPage extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  onPressed: () {},
+                  onPressed: () {cadastrar(context);},
                 ),
               ),
             ),
@@ -148,7 +151,6 @@ class SignupPage extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: TextButton(
                 style: ButtonStyle(
-
                 ),
                 child: Text(
                   style: TextStyle(

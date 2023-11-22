@@ -9,7 +9,7 @@ class HomePage extends StatelessWidget {
         title: Center(
           child: SizedBox(
             width: 100,
-            child: Image.asset("assets/app-logo.png"),
+            child: Image.asset("assets/td-logo.png"),
           ),
         ),
         leading: Container(
@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
           width: 40,
           decoration: new BoxDecoration(
             image: new DecorationImage(
-              image: AssetImage("assets/user-picture.png"),
+              image: AssetImage("assets/profile-tech-decor.png"),
               fit: BoxFit.fitHeight,
             ),
           ),
